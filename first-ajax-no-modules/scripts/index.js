@@ -54,13 +54,14 @@ const fetchVideos = function(searchTerm, callback) {
 // TEST IT! Grab an example API response and send it into the function - make sure
 // you get back the object you want.
 const decorateResponse = function(response) {
-  let json = response.items.map(data => {
+  let jsonObject = response.items.map(data => {
     return {
       id: data.id.playlistId,
       name: data.snippet.title,
       thumbnail: data.snippet.thumbnails.default.url
     };
   });
+  return jsonObject;
 };
 fetchVideos('cats', decorateResponse);
 
