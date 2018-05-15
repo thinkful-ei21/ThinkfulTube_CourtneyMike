@@ -1,4 +1,24 @@
-const API_KEY = 'YOUR_KEY_HERE';
+/* global $ */
+'use strict';
+
+const API_KEY = 'AIzaSyBRV3a7Jt4G9xf641cQ5apffxOB17AUPl8';
+
+// function getDataFromApi(searchTerm) {
+
+//   $.getJSON(
+//     YOUTUBE_URL,
+//     {
+//       key: 'AIzaSyBRV3a7Jt4G9xf641cQ5apffxOB17AUPl8',
+//       maxResults: 5,
+//       part: 'snippet',
+//       q: `${searchTerm}`,
+//       type: 'playlist'
+//     },
+//     (response) => console.log(response)
+//   );
+// }
+
+// getDataFromApi('surfing');
 
 /*
   We want our store to hold a `videos` array of "decorated" objects - i.e. objects that
@@ -18,7 +38,7 @@ const store = {
 
 // TASK: Add the Youtube Search API Base URL here:
 // Documentation is here: https://developers.google.com/youtube/v3/docs/search/list#usage
-const BASE_URL = '';
+const BASE_URL = 'https://www.googleapis.com/youtube/v3/search';
 
 // TASK:
 // 1. Create a `fetchVideos` function that receives a `searchTerm` and `callback`
@@ -27,7 +47,20 @@ const BASE_URL = '';
 // TEST IT! Execute this function and console log the results inside the callback.
 const fetchVideos = function(searchTerm, callback) {
 
+   $.getJSON(
+    BASE_URL,
+    {
+      key: 'AIzaSyBRV3a7Jt4G9xf641cQ5apffxOB17AUPl8',
+      maxResults: 5,
+      part: 'snippet',
+      q: `${searchTerm}`,
+      type: 'playlist'
+    },
+    (response) => console.log(response)
+  );
 };
+
+fetchVideos('cats');
 
 // TASK:
 // 1. Create a `decorateResponse` function that receives the Youtube API response
