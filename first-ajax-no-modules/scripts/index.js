@@ -63,7 +63,6 @@ const decorateResponse = function(response) {
   });
   return jsonObject;
 };
-fetchVideos('squirrels', decorateResponse);
 
 // TASK:
 // 1. Create a `generateVideoItemHtml` function that receives the decorated object
@@ -258,7 +257,7 @@ const test = {
  ]
 };
 
-// const decorate = decorateResponse(test);
+ const decorate = decorateResponse();
 // console.log(decorate);
 // console.log(generateVideoItemHtml(decorate[0]));
 
@@ -267,16 +266,19 @@ const test = {
 // objects and sets the array as the value held in store.items
 // TEST IT!
 const addVideosToStore = function(videos) {
-
+  store.videos = videos;
 };
-
+addVideosToStore(decorate);
 // TASK:
 // 1. Create a `render` function
 // 2. Map through `store.videos`, sending each `video` through your `generateVideoItemHtml`
 // 3. Add your array of DOM elements to the appropriate DOM element
 // TEST IT!
 const render = function() {
-
+  const videoElements = store.videos.map(data => {
+    return generateVideoItemHtml(data);
+  });
+  $('.results').html(videoElements);
 };
 
 // TASK:
@@ -291,6 +293,14 @@ const render = function() {
 //   g) Inside the callback, run the `render` function 
 // TEST IT!
 const handleFormSubmit = function() {
+  // $('submit')
+  // let searchTerm = $('#search-term').val();
+
+
+  // searchTerm = '';
+
+  //  fetchVideos(searchTerm, decorateResponse);
+  //  render();
 
 };
 
