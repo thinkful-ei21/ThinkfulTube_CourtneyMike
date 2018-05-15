@@ -57,21 +57,210 @@ const decorateResponse = function(response) {
   let jsonObject = response.items.map(data => {
     return {
       id: data.id.playlistId,
-      name: data.snippet.title,
+      title: data.snippet.title,
       thumbnail: data.snippet.thumbnails.default.url
     };
   });
   return jsonObject;
 };
-fetchVideos('cats', decorateResponse);
+fetchVideos('squirrels', decorateResponse);
 
 // TASK:
 // 1. Create a `generateVideoItemHtml` function that receives the decorated object
 // 2. Using the object, return an HTML string containing all the expected data
 // TEST IT!
 const generateVideoItemHtml = function(video) {
+  //console.log(video);
+  return `
+    <li data-id="${video.id}">
+      <h3>${video.title}</h3>
+      <img src="${video.thumbnail}">
+    </li>
+    `;
 
 };
+
+const test = {
+ "kind": "youtube#searchListResponse",
+ "etag": "\"DuHzAJ-eQIiCIp7p4ldoVcVAOeY/5_DOI3jJTkzwBmx_0NaUdfHPQAg\"",
+ "nextPageToken": "CAUQAA",
+ "regionCode": "US",
+ "pageInfo": {
+  "totalResults": 1000000,
+  "resultsPerPage": 5
+ },
+ "items": [
+  {
+   "kind": "youtube#searchResult",
+   "etag": "\"DuHzAJ-eQIiCIp7p4ldoVcVAOeY/DU4JSa1AzCZpQOAVvc-qC8enxwc\"",
+   "id": {
+    "kind": "youtube#playlist",
+    "playlistId": "PLwlF1uffYtXrBWkdhf9AJtrSws-djZ_aX"
+   },
+   "snippet": {
+    "publishedAt": "2014-01-16T14:34:54.000Z",
+    "channelId": "UC9egiwuJsQZ0Cy2to5fvSIQ",
+    "title": "Popular Videos - Cats",
+    "description": "",
+    "thumbnails": {
+     "default": {
+      "url": "https://i.ytimg.com/vi/hY7m5jjJ9mM/default.jpg",
+      "width": 120,
+      "height": 90
+     },
+     "medium": {
+      "url": "https://i.ytimg.com/vi/hY7m5jjJ9mM/mqdefault.jpg",
+      "width": 320,
+      "height": 180
+     },
+     "high": {
+      "url": "https://i.ytimg.com/vi/hY7m5jjJ9mM/hqdefault.jpg",
+      "width": 480,
+      "height": 360
+     }
+    },
+    "channelTitle": "Cats - Topic",
+    "liveBroadcastContent": "none"
+   }
+  },
+  {
+   "kind": "youtube#searchResult",
+   "etag": "\"DuHzAJ-eQIiCIp7p4ldoVcVAOeY/YUL6MN3-w1Gn1gLT-JYi4jf-yVg\"",
+   "id": {
+    "kind": "youtube#playlist",
+    "playlistId": "PLSRCVBPKRukyZLOyvyErIuZ8wgjmV9SUP"
+   },
+   "snippet": {
+    "publishedAt": "2017-04-27T16:02:26.000Z",
+    "channelId": "UCYfybUu1hUKRZl3r7FYAgHg",
+    "title": "CATS | Crash Arena Turbo Stars",
+    "description": "",
+    "thumbnails": {
+     "default": {
+      "url": "https://i.ytimg.com/vi/_om6dgiJrXQ/default.jpg",
+      "width": 120,
+      "height": 90
+     },
+     "medium": {
+      "url": "https://i.ytimg.com/vi/_om6dgiJrXQ/mqdefault.jpg",
+      "width": 320,
+      "height": 180
+     },
+     "high": {
+      "url": "https://i.ytimg.com/vi/_om6dgiJrXQ/hqdefault.jpg",
+      "width": 480,
+      "height": 360
+     }
+    },
+    "channelTitle": "MasterOv",
+    "liveBroadcastContent": "none"
+   }
+  },
+  {
+   "kind": "youtube#searchResult",
+   "etag": "\"DuHzAJ-eQIiCIp7p4ldoVcVAOeY/wseArcT39_V_ufIxWVJS3DPaW4U\"",
+   "id": {
+    "kind": "youtube#playlist",
+    "playlistId": "PLY16C4iibn03WJLpo2S2yVNF8LdQ7_JFh"
+   },
+   "snippet": {
+    "publishedAt": "2017-05-12T06:10:51.000Z",
+    "channelId": "UCOynRdpGiTCNFhCgD0RTe1w",
+    "title": "CATS: Crash Arena Turbo Stars",
+    "description": "",
+    "thumbnails": {
+     "default": {
+      "url": "https://i.ytimg.com/vi/DBl-lM7_Eks/default.jpg",
+      "width": 120,
+      "height": 90
+     },
+     "medium": {
+      "url": "https://i.ytimg.com/vi/DBl-lM7_Eks/mqdefault.jpg",
+      "width": 320,
+      "height": 180
+     },
+     "high": {
+      "url": "https://i.ytimg.com/vi/DBl-lM7_Eks/hqdefault.jpg",
+      "width": 480,
+      "height": 360
+     }
+    },
+    "channelTitle": "SHIMOROSHOW",
+    "liveBroadcastContent": "none"
+   }
+  },
+  {
+   "kind": "youtube#searchResult",
+   "etag": "\"DuHzAJ-eQIiCIp7p4ldoVcVAOeY/ltV-m-CY9b4x60wha2NqfS5a_Zo\"",
+   "id": {
+    "kind": "youtube#playlist",
+    "playlistId": "PLowDmDC45ckeogLUkkDG8AfLcNVc0QUqk"
+   },
+   "snippet": {
+    "publishedAt": "2014-10-25T18:28:03.000Z",
+    "channelId": "UCZKyD9ZfVpUqSrha0PdUaLQ",
+    "title": "Cats 101 - Alphabetical Order",
+    "description": "",
+    "thumbnails": {
+     "default": {
+      "url": "https://i.ytimg.com/vi/7jZ9CGARwEs/default.jpg",
+      "width": 120,
+      "height": 90
+     },
+     "medium": {
+      "url": "https://i.ytimg.com/vi/7jZ9CGARwEs/mqdefault.jpg",
+      "width": 320,
+      "height": 180
+     },
+     "high": {
+      "url": "https://i.ytimg.com/vi/7jZ9CGARwEs/hqdefault.jpg",
+      "width": 480,
+      "height": 360
+     }
+    },
+    "channelTitle": "MetalGoddess",
+    "liveBroadcastContent": "none"
+   }
+  },
+  {
+   "kind": "youtube#searchResult",
+   "etag": "\"DuHzAJ-eQIiCIp7p4ldoVcVAOeY/8ATAlyL5mLycDob2dILHeaDXbzo\"",
+   "id": {
+    "kind": "youtube#playlist",
+    "playlistId": "PLQwzoMe7r8I8C__qarBs92gWGhat6BaNY"
+   },
+   "snippet": {
+    "publishedAt": "2014-06-19T11:48:36.000Z",
+    "channelId": "UCJ67yr9lbEAbf7-z4xFzlGw",
+    "title": "All Tracks - The Cats",
+    "description": "",
+    "thumbnails": {
+     "default": {
+      "url": "https://i.ytimg.com/vi/PF9sS-WZvaU/default.jpg",
+      "width": 120,
+      "height": 90
+     },
+     "medium": {
+      "url": "https://i.ytimg.com/vi/PF9sS-WZvaU/mqdefault.jpg",
+      "width": 320,
+      "height": 180
+     },
+     "high": {
+      "url": "https://i.ytimg.com/vi/PF9sS-WZvaU/hqdefault.jpg",
+      "width": 480,
+      "height": 360
+     }
+    },
+    "channelTitle": "The Cats - Topic",
+    "liveBroadcastContent": "none"
+   }
+  }
+ ]
+};
+
+// const decorate = decorateResponse(test);
+// console.log(decorate);
+// console.log(generateVideoItemHtml(decorate[0]));
 
 // TASK:
 // 1. Create a `addVideosToStore` function that receives an array of decorated video 
