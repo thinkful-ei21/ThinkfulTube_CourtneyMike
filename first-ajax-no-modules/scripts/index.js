@@ -3,22 +3,6 @@
 
 const API_KEY = 'AIzaSyBRV3a7Jt4G9xf641cQ5apffxOB17AUPl8';
 
-// function getDataFromApi(searchTerm) {
-
-//   $.getJSON(
-//     YOUTUBE_URL,
-//     {
-//       key: 'AIzaSyBRV3a7Jt4G9xf641cQ5apffxOB17AUPl8',
-//       maxResults: 5,
-//       part: 'snippet',
-//       q: `${searchTerm}`,
-//       type: 'playlist'
-//     },
-//     (response) => console.log(response)
-//   );
-// }
-
-// getDataFromApi('surfing');
 
 /*
   We want our store to hold a `videos` array of "decorated" objects - i.e. objects that
@@ -47,7 +31,7 @@ const BASE_URL = 'https://www.googleapis.com/youtube/v3/search';
 // TEST IT! Execute this function and console log the results inside the callback.
 const fetchVideos = function(searchTerm, callback) {
 
-   $.getJSON(
+  $.getJSON(
     BASE_URL,
     {
       key: 'AIzaSyBRV3a7Jt4G9xf641cQ5apffxOB17AUPl8',
@@ -56,11 +40,10 @@ const fetchVideos = function(searchTerm, callback) {
       q: `${searchTerm}`,
       type: 'playlist'
     },
-    (response) => console.log(response)
+    callback
   );
 };
 
-fetchVideos('cats');
 
 // TASK:
 // 1. Create a `decorateResponse` function that receives the Youtube API response
@@ -71,8 +54,15 @@ fetchVideos('cats');
 // TEST IT! Grab an example API response and send it into the function - make sure
 // you get back the object you want.
 const decorateResponse = function(response) {
-
+  let json = response.items.map(data => {
+    return {
+      id: data.id.playlistId,
+      name: data.snippet.title,
+      thumbnail: data.snippet.thumbnails.default.url
+    };
+  });
 };
+fetchVideos('cats', decorateResponse);
 
 // TASK:
 // 1. Create a `generateVideoItemHtml` function that receives the decorated object
