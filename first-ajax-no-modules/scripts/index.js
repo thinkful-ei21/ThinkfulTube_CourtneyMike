@@ -20,65 +20,6 @@ const store = {
   videos: []
 };
 
-// TASK: Add the Youtube Search API Base URL here:
-// Documentation is here: https://developers.google.com/youtube/v3/docs/search/list#usage
-const BASE_URL = 'https://www.googleapis.com/youtube/v3/search';
-
-// TASK:
-// 1. Create a `fetchVideos` function that receives a `searchTerm` and `callback`
-// 2. Use `searchTerm` to construct the right query object based on the Youtube API docs
-// 3. Make a getJSON call using the query object and sending the provided callback in as the last argument
-// TEST IT! Execute this function and console log the results inside the callback.
-const fetchVideos = function(searchTerm, callback) {
-
-  $.getJSON(
-    BASE_URL,
-    {
-      key: 'AIzaSyBRV3a7Jt4G9xf641cQ5apffxOB17AUPl8',
-      maxResults: 5,
-      part: 'snippet',
-      q: `${searchTerm}`,
-      type: 'playlist'
-    },
-    callback
-  );
-};
-
-
-// TASK:
-// 1. Create a `decorateResponse` function that receives the Youtube API response
-// 2. Map through the response object's `items` array
-// 3. Return an array of objects, where each object contains the keys `id`, `title`, 
-// `thumbnail` which each hold the appropriate values from the API item object. You 
-// WILL have to dig into several nested properties!
-// TEST IT! Grab an example API response and send it into the function - make sure
-// you get back the object you want.
-const decorateResponse = function(response) {
-  let jsonObject = response.items.map(data => {
-    return {
-      id: data.id.playlistId,
-      title: data.snippet.title,
-      thumbnail: data.snippet.thumbnails.default.url
-    };
-  });
-  return jsonObject;
-};
-
-// TASK:
-// 1. Create a `generateVideoItemHtml` function that receives the decorated object
-// 2. Using the object, return an HTML string containing all the expected data
-// TEST IT!
-const generateVideoItemHtml = function(video) {
-  //console.log(video);
-  return `
-    <li data-id="${video.id}">
-      <h3>${video.title}</h3>
-      <img src="${video.thumbnail}">
-    </li>
-    `;
-
-};
-
 const test = {
  "kind": "youtube#searchListResponse",
  "etag": "\"DuHzAJ-eQIiCIp7p4ldoVcVAOeY/5_DOI3jJTkzwBmx_0NaUdfHPQAg\"",
@@ -257,7 +198,67 @@ const test = {
  ]
 };
 
- const decorate = decorateResponse();
+// TASK: Add the Youtube Search API Base URL here:
+// Documentation is here: https://developers.google.com/youtube/v3/docs/search/list#usage
+const BASE_URL = 'https://www.googleapis.com/youtube/v3/search';
+
+// TASK:
+// 1. Create a `fetchVideos` function that receives a `searchTerm` and `callback`
+// 2. Use `searchTerm` to construct the right query object based on the Youtube API docs
+// 3. Make a getJSON call using the query object and sending the provided callback in as the last argument
+// TEST IT! Execute this function and console log the results inside the callback.
+const fetchVideos = function(searchTerm, callback) {
+
+  $.getJSON(
+    BASE_URL,
+    {
+      key: 'AIzaSyBRV3a7Jt4G9xf641cQ5apffxOB17AUPl8',
+      maxResults: 5,
+      part: 'snippet',
+      q: `${searchTerm}`,
+      type: 'playlist'
+    },
+    callback
+  );
+};
+
+
+// TASK:
+// 1. Create a `decorateResponse` function that receives the Youtube API response
+// 2. Map through the response object's `items` array
+// 3. Return an array of objects, where each object contains the keys `id`, `title`, 
+// `thumbnail` which each hold the appropriate values from the API item object. You 
+// WILL have to dig into several nested properties!
+// TEST IT! Grab an example API response and send it into the function - make sure
+// you get back the object you want.
+const decorateResponse = function(response) {
+  let jsonObject = response.items.map(data => {
+    return {
+      id: data.id.playlistId,
+      title: data.snippet.title,
+      thumbnail: data.snippet.thumbnails.default.url
+    };
+  });
+  addVideosToStore(jsonObject);
+  return;
+};
+
+// TASK:
+// 1. Create a `generateVideoItemHtml` function that receives the decorated object
+// 2. Using the object, return an HTML string containing all the expected data
+// TEST IT!
+const generateVideoItemHtml = function(video) {
+  //console.log(video);
+  return `
+    <li data-id="${video.id}">
+      <h3>${video.title}</h3>
+      <img src="${video.thumbnail}">
+    </li>
+    `;
+
+};
+
+// const decorate = decorateResponse();
 // console.log(decorate);
 // console.log(generateVideoItemHtml(decorate[0]));
 
@@ -268,7 +269,7 @@ const test = {
 const addVideosToStore = function(videos) {
   store.videos = videos;
 };
-addVideosToStore(decorate);
+//addVideosToStore(decorate);
 // TASK:
 // 1. Create a `render` function
 // 2. Map through `store.videos`, sending each `video` through your `generateVideoItemHtml`
@@ -293,14 +294,14 @@ const render = function() {
 //   g) Inside the callback, run the `render` function 
 // TEST IT!
 const handleFormSubmit = function() {
-  // $('submit')
-  // let searchTerm = $('#search-term').val();
+  $('form').on('submit', function(event) {
+    event.preventDefault();
+    const searchTerm = $(event.currentTarget).find('#search-term').val();
+    $(event.currentTarget).find('#search-term').val('');
+    fetchVideos(searchTerm, decorateResponse);
+    render();
 
-
-  // searchTerm = '';
-
-  //  fetchVideos(searchTerm, decorateResponse);
-  //  render();
+  });
 
 };
 
@@ -308,4 +309,5 @@ const handleFormSubmit = function() {
 $(function () {
   // TASK:
   // 1. Run `handleFormSubmit` to bind the event listener to the DOM
+  handleFormSubmit();
 });
